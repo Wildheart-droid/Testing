@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://e5w6j80j2aw0"]
+
+[ext_resource type="Texture2D" uid="uid://dgrtwkwur2own" path="res://icon.svg" id="2_m73jt"]
+[ext_resource type="PackedScene" uid="uid://djgn3etabul2c" path="res://Scenes/new_player.tscn" id="4_6nqai"]
+[ext_resource type="PackedScene" uid="uid://bagfktkm12mh8" path="res://Scenes/jump_pad.tscn" id="4_dafsm"]
+[ext_resource type="PackedScene" uid="uid://ctempkogsl2ap" path="res://Scenes/checkpoint.tscn" id="4_joev6"]
+[ext_resource type="PackedScene" uid="uid://e4t368w6hqei" path="res://Scenes/spikes.tscn" id="5_p1n0p"]
+[ext_resource type="PackedScene" uid="uid://dif135bu255y0" path="res://Scenes/dash_recharge.tscn" id="6_k2dq4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yati7"]
+size = Vector2(1300, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq41c"]
+size = Vector2(125, 351)
+
+[node name="World" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 68)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(40, 32)
+scale = Vector2(10.1563, 0.5)
+texture = ExtResource("2_m73jt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(39, 31.5)
+shape = SubResource("RectangleShape2D_yati7")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(607, 56)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(0, -161)
+scale = Vector2(1, 2.79688)
+texture = ExtResource("2_m73jt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0.5, -160.5)
+shape = SubResource("RectangleShape2D_jq41c")
+
+[node name="NewPlayer" parent="." instance=ExtResource("4_6nqai")]
+position = Vector2(122, 50)
+
+[node name="JumpPad" parent="." instance=ExtResource("4_dafsm")]
+position = Vector2(18, 68)
+
+[node name="Checkpoint" parent="." instance=ExtResource("4_joev6")]
+position = Vector2(307, 68)
+
+[node name="Spikes" parent="." instance=ExtResource("5_p1n0p")]
+position = Vector2(525, 56)
+
+[node name="WorldSpawn" type="Marker2D" parent="."]
+position = Vector2(122, 68)
+
+[node name="Dash_Recharge" parent="." instance=ExtResource("6_k2dq4")]
+position = Vector2(-131, -47)
+
+[node name="Dash_Recharge2" parent="." instance=ExtResource("6_k2dq4")]
+position = Vector2(-48, -125)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-1055, 596)

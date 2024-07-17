@@ -1,0 +1,134 @@
+[gd_scene load_steps=17 format=3 uid="uid://dn2el1f6djfrv"]
+
+[ext_resource type="Texture2D" uid="uid://crvd6jtfqq1tn" path="res://Sprites/Effects/Smoke VFX3.png" id="1_hvdv4"]
+[ext_resource type="Script" path="res://Scripts/LandingParticles.gd" id="5_dw6oq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nknxd"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho4h3"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jwra"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25v36"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trj7u"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(128, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wywpk"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(160, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgssv"]
+atlas = ExtResource("1_hvdv4")
+region = Rect2(192, 0, 32, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fiebu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pbyge"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rimwd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bmvhf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nknxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho4h3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jwra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25v36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trj7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wywpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgssv")
+}],
+"loop": false,
+"name": &"New",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_fiebu")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_pbyge")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_rimwd")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_88yj0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_p5s6o"]
+resource_name = "start"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.3001),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p2346"]
+_data = {
+"RESET": SubResource("Animation_88yj0"),
+"start": SubResource("Animation_p5s6o")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+show_behind_parent = true
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_bmvhf")
+animation = &"New"
+autoplay = "New"
+script = ExtResource("5_dw6oq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_p2346")
+}
+autoplay = "start"
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

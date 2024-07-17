@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://gpbcs3707yni"]
+
+[ext_resource type="Texture2D" uid="uid://bysgpt80ypjty" path="res://Sprites/Effects/Sword Master Sprite Sheet_Edited_Dash.png" id="1_cjdcj"]
+[ext_resource type="Script" path="res://Scripts/ghost.gd" id="2_5qlkh"]
+
+[node name="Ghost" type="Sprite2D"]
+show_behind_parent = true
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cjdcj")
+script = ExtResource("2_5qlkh")
+
+[node name="Camera2D" type="Camera2D" parent="."]

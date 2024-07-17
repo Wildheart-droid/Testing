@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://dif135bu255y0"]
+
+[ext_resource type="Texture2D" uid="uid://b5ccaq4l4iuuv" path="res://Sprites/Asset_Sprites/ROCoGames Pickups Transparent.png" id="1_2hjv8"]
+[ext_resource type="Script" path="res://Scripts/dash_recharge.gd" id="1_k01lv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bst14"]
+radius = 11.0
+
+[sub_resource type="Animation" id="Animation_sqo4w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [288]
+}
+
+[sub_resource type="Animation" id="Animation_nbrwi"]
+resource_name = "Recharge_Idle"
+length = 0.8
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [288, 289, 290, 291, 292, 293, 294, 295]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jn3oe"]
+_data = {
+"RESET": SubResource("Animation_sqo4w"),
+"Recharge_Idle": SubResource("Animation_nbrwi")
+}
+
+[node name="Dash_Recharge" type="Node2D"]
+position = Vector2(0, -0.139693)
+script = ExtResource("1_k01lv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_2hjv8")
+hframes = 16
+vframes = 20
+frame = 288
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.86031)
+shape = SubResource("CircleShape2D_bst14")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jn3oe")
+}
+autoplay = "Recharge_Idle"
+
+[node name="Respawn_Timer" type="Timer" parent="."]
+wait_time = 1.8
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
